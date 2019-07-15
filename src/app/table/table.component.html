@@ -4,9 +4,12 @@
             <th class="course-name">Person Name</th>
             <th class="duration">Date of Birth</th>
         </tr>
-        <tr style="height:50px;">
-            <td  style="height:50px;" class="course-name"></td>
-            <td  style="height:50px;" class="duration"></td>
+        <tr 
+            style="height:50px;"
+            *ngFor="let birthday of arrangeItems()"
+        >
+            <td  style="height:50px;" class="course-name">{{birthday.name}}</td>
+            <td  style="height:50px;" class="duration">{{getDate(birthday.birth)}}</td>
         </tr>
     </table>
 </div>

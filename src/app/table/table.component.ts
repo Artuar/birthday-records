@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Birthday, SortType } from '../app.types';
 
 @Component({
   selector: 'app-table',
@@ -6,54 +8,55 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent {
-  birthdays = [
+  @Input() sortBy: SortType;
+
+  birthdays: Birthday[] = [
     {
-      name: "John Sina",
-      birth: "11/30/2011"
+      name: 'John Sina',
+      birth: '11/30/2011'
     }, {
-      name: "Barcy Washington",
-      birth: "09/16/1992"
+      name: 'Barcy Washington',
+      birth: '09/16/1992'
     }, {
-      name: "Peter Parker",
-      birth: "01/16/1992"
+      name: 'Peter Parker',
+      birth: '01/16/1992'
     }, {
-      name: "Jimmy Shergil",
-      birth: "12/12/2001"
+      name: 'Jimmy Shergil',
+      birth: '12/12/2001'
     }, {
-      name: "Alexander Alfred",
-      birth: "02/09/1891"
+      name: 'Alexander Alfred',
+      birth: '02/09/1891'
     }, {
-      name: "Krishna Gupta",
-      birth: "12/01/1982"
+      name: 'Krishna Gupta',
+      birth: '12/01/1982'
     }, {
-      name: "Sania Mirza",
-      birth: "11/30/2011"
+      name: 'Sania Mirza',
+      birth: '11/30/2011'
     }, {
-      name: "Lata Pathak",
-      birth: "10/31/1999"
+      name: 'Lata Pathak',
+      birth: '10/31/1999'
     }
   ];
-  // this takes input from the radio component
-  sortBy: string;
-  constructor() {}
 
-  ngOnChanges() {
-    // call arrangeItems on form change
-  }
+  constructor(private dateFormater: DatePipe) {}
 
   arrangeItems() {
-      // sort the `birthdays` array accordingly
-    }
+      return this.birthdays.sort(
+        this.sortBy === SortType.Age ? this.compareDates : this.compareNames
+      );
+  }
 
-    compareDates(a, b) {
-      // boolean comparator for dates
-    }
+  compareDates(a: Birthday, b: Birthday) {
+    const aBirth = new Date(a.birth).getTime();
+    const bBirth = new Date(b.birth).getTime();
+    return aBirth > bBirth ? 1 : aBirth < bBirth ? -1 : 0;
+  }
 
-    compareNames(a, b) {
-      // boolean comparator for names
-    }
+  compareNames(a: Birthday, b: Birthday) {
+    return a.name > b.name ? 1 : a.name < b.name ? -1 : 0;
+  }
 
-    getDate(str: string) {
-      // convert the passed date into a human readbale form
-    }
+  getDate(str: string) {
+      return this.dateFormater.transform(str, 'MMMM dd yyyy');
+  }
 }

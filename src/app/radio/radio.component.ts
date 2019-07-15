@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { SortType, RadioModel } from '../app.types';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-radio',
@@ -6,15 +9,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./radio.component.css']
 })
 export class RadioComponent {
-  model;
-  constructor() {
-    this.model = {
-      sortBy: ""
-    }
+  @Input() public sortBy: SortType = SortType.Name;
+  @Output() changeSort = new EventEmitter();
+
+  form: FormGroup;
+  model: RadioModel;
+
+  constructor(formBuilder: FormBuilder) {
+    this.model = { sortBy: SortType.Name};
+    this.form = formBuilder.group({ sortBy: SortType.Name});
   }
 
   returnModelState() {
-    //return the the model.sortBy vale
-    return "";
+    return this.model;
+  }
+
+  onChange() {
+    this.model = this.form.controls.sortBy.value;
+    this.changeSort.emit(this.model);
   }
 }
