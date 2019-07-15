@@ -7,7 +7,7 @@ import { SortType, RadioModel } from './app.types';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public sortBy = SortType.Name;
+  public sortBy: SortType = '';
 
   changeSortType(type: SortType) {
     this.sortBy = type;

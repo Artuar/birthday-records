@@ -3,10 +3,7 @@ export interface Birthday {
     birth: string;
 }
 
-export enum SortType {
-    Name = 'name',
-    Age = 'age'
-}
+export type SortType = 'name' | 'age' | '';
 
 export interface RadioModel {
     sortBy: SortType;

@@ -1,14 +1,10 @@
 <div class="radioButtons">
-    <form [formGroup]="form">
-        <div class="left">
-            <input type="radio" value="name" formControlName="sortBy" (click)="onChange()">
-            &nbsp;&nbsp;Sort by name
-        </div>
-        <div class="right">
-            <input type="radio" value="age" formControlName="sortBy" (click)="onChange()">
-            &nbsp;&nbsp;Sort by age
-        </div>
-    </form>
+    <div class="left">
+        <input type="radio" value="name" [ngModel]="sortBy" (change)="onChange('name')">
+        &nbsp;&nbsp;Sort by name
+    </div>
+    <div class="right">
+        <input type="radio" value="age" [ngModel]="sortBy" (change)="onChange('age')">
+        &nbsp;&nbsp;Sort by age
+    </div>
 </div>
-
-<!-- Fill the HTML with respective directives -->

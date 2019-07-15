@@ -8,7 +8,7 @@ import { Birthday, SortType } from '../app.types';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent {
-  @Input() sortBy: SortType;
+  @Input() sortBy: SortType = '';
 
   birthdays: Birthday[] = [
     {
@@ -41,9 +41,14 @@ export class TableComponent {
   constructor(private dateFormater: DatePipe) {}
 
   arrangeItems() {
-      return this.birthdays.sort(
-        this.sortBy === SortType.Age ? this.compareDates : this.compareNames
-      );
+    switch (this.sortBy) {
+      case 'name':
+        return [...this.birthdays].sort(this.compareNames);
+      case 'age':
+        return [...this.birthdays].sort(this.compareDates);
+      default:
+        return this.birthdays;
+    }
   }
 
   compareDates(a: Birthday, b: Birthday) {
