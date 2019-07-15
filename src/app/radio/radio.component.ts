@@ -8,7 +8,7 @@ import { SortType, RadioModel } from '../app.types';
   styleUrls: ['./radio.component.css']
 })
 export class RadioComponent {
-  @Input() public sortBy: SortType = '';
+  @Input() public sortBy: SortType = 'name';
   @Output() changeSort = new EventEmitter();
 
   model: RadioModel;
